@@ -10,10 +10,10 @@
 :root{
   --bg:#fbfaf8; --surface:#ffffff; --ink:#1d1d1f; --muted:#5b5b63; --line:#e6e3de;
   --accent:#c13584; --accent-soft:#fbeaf3; --warn:#9a3412; --warn-bg:#fff4ec; --warn-line:#f4c7a6;
-  --note:#1e40af; --note-bg:#eef3ff; --note-line:#c7d5fb; --done:#15803d;
+  --note:#1e40af; --note-bg:#eef3ff; --note-line:#c7d5fb;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,sans-serif}
 h1,h2{font-family:"Source Serif 4",Georgia,serif;line-height:1.2;margin:0}
 h1{font-size:clamp(30px,5vw,44px)}
@@ -22,17 +22,9 @@ h3{font-size:18px;margin:28px 0 8px}
 p{margin:0 0 14px}
 a{color:var(--accent)}
 
-/* top progress bar + nav */
-.topbar{position:sticky;top:0;z-index:20;background:rgba(251,250,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topbar-inner{max-width:1180px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:16px}
-.topbar .brand{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.progress-wrap{flex:1;display:flex;align-items:center;gap:10px;min-width:140px}
-.progress{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
-.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#f58529,#dd2a7b,#8134af);transition:width .3s}
-.progress-label{font-size:13px;color:var(--muted);white-space:nowrap}
 
 .layout{max-width:1180px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:230px 1fr;gap:48px}
-nav.toc{position:sticky;top:76px;align-self:start;padding:28px 0;font-size:14px}
+nav.toc{position:sticky;top:0;align-self:start;padding:28px 0;font-size:14px}
 nav.toc p{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px}
 nav.toc ol{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
 nav.toc a{display:block;padding:6px 14px;color:var(--muted);text-decoration:none;margin-left:-2px;border-left:2px solid transparent}
@@ -50,8 +42,9 @@ figure{margin:20px 0;text-align:left}
 figure .shots{display:flex;flex-wrap:wrap;gap:14px}
 figure img{display:block;border:2px solid #e2463f;border-radius:10px;background:#fff;cursor:zoom-in;transition:transform .15s, box-shadow .15s}
 figure img:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
-figure .shots img{height:340px;width:auto;max-width:100%;object-fit:contain}
-figure.tall .shots img{height:420px}
+figure .shots{flex-wrap:nowrap}
+figure .shots img{width:auto;height:auto;max-height:340px;max-width:calc(50% - 7px)}
+figure.tall .shots img{max-height:420px}
 figure.wide .shots img{height:auto;width:calc(50% - 7px)}
 figure.hero-fig img{width:100%;height:auto;border:none}
 figcaption{font-size:13.5px;color:var(--muted);font-style:italic;margin-top:8px}
@@ -75,14 +68,7 @@ ul.terms li::marker,ul.plain li::marker{content:"– "}
 ol.steps{list-style:none;padding:0;margin:18px 0 0;counter-reset:s}
 ol.steps>li{position:relative;padding:0 0 8px 56px;margin-bottom:12px}
 ol.steps>li::before{counter-increment:s;content:counter(s) ")";position:absolute;left:0;top:0;width:38px;height:38px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px;transition:background .2s,color .2s}
-ol.steps>li.done::before{content:"✓";background:var(--done);color:#fff}
-ol.steps>li.done>.step-text{color:var(--muted)}
 .step-text{padding-top:6px}
-.check{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);cursor:pointer;user-select:none;margin:2px 0 6px;padding:4px 10px;border:1px solid var(--line);border-radius:99px;background:#fff}
-.check input{accent-color:var(--done);width:15px;height:15px;margin:0;cursor:pointer}
-li.done .check{border-color:#bbe5c8;background:#f0fbf3;color:var(--done)}
-.section-done{display:none;margin-top:12px;padding:12px 16px;border-radius:10px;background:#f0fbf3;border:1px solid #bbe5c8;color:var(--done);font-weight:600;font-size:15px}
-.section-done.show{display:block}
 
 details.trouble{border:1px solid var(--line);border-radius:12px;margin:12px 0;background:#fff}
 details.trouble summary{cursor:pointer;padding:14px 18px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
@@ -96,8 +82,6 @@ dl.glossary div{border-left:3px solid var(--accent);padding:6px 0 6px 14px}
 dl.glossary dt{font-weight:700}
 dl.glossary dd{margin:2px 0 0;color:#333}
 
-.reset{margin-top:20px;font:inherit;font-size:13px;color:var(--muted);background:none;border:1px solid var(--line);border-radius:99px;padding:6px 14px;cursor:pointer}
-.reset:hover{color:var(--ink)}
 
 /* lightbox */
 .lightbox{position:fixed;inset:0;background:rgba(10,10,12,.85);display:none;align-items:center;justify-content:center;z-index:50;padding:24px;flex-direction:column;gap:12px;cursor:zoom-out}
@@ -116,22 +100,11 @@ dl.glossary dd{margin:2px 0 0;color:#333}
   figure .shots img,figure.tall .shots img{height:auto;width:calc(50% - 7px)}
   figure .shots img:only-child{width:70%}
   ol.steps>li{padding-left:48px}
-  .topbar .brand{display:none}
 }
-@media print{.topbar,nav.toc,.check,.reset{display:none}.layout{display:block}section{break-inside:avoid-page}}
+@media print{nav.toc{display:none}.layout{display:block}section{break-inside:avoid-page}}
 </style>
 </head>
 <body>
-
-<div class="topbar">
-  <div class="topbar-inner">
-    <div class="brand">How to Set Up a Teen Instagram Account</div>
-    <div class="progress-wrap" title="Check off steps as you complete them">
-      <div class="progress"><span id="bar"></span></div>
-      <div class="progress-label" id="barLabel">0 of 17 steps done</div>
-    </div>
-  </div>
-</div>
 
 <div class="layout">
 <nav class="toc" aria-label="Contents">
@@ -195,7 +168,7 @@ dl.glossary dd{margin:2px 0 0;color:#333}
 <section id="setup">
   <h2>Setting Up a new Teen Account</h2>
   <p>To create a supervised Teen Account, you first must create a new account for your teen. You will use the mobile app to do this.</p>
-  <p class="zoom-hint">Tip: click any screenshot to enlarge it, and check off each step as you finish it.</p>
+  <p class="zoom-hint">Tip: click any screenshot to enlarge it.</p>
   <ol class="steps" data-group="setup">
     <li><div class="step-text">To begin, open the Instagram app on your teen’s phone and select the “Create new account” button that appears on the screen. Then enter your teen’s phone number when prompted or, alternatively, enter an active email.</div></li>
     <li><div class="step-text">You will then be prompted to create a password, such as the example shown below in figure 2.</div>
@@ -337,7 +310,6 @@ dl.glossary dd{margin:2px 0 0;color:#333}
   <h2>Citations</h2>
   <p>All photos were taken by a group member</p>
   <p>Meta/Instagram</p>
-  <button class="reset" id="reset" type="button">Reset step checklist</button>
 </section>
 </main>
 </div>
@@ -349,42 +321,6 @@ dl.glossary dd{margin:2px 0 0;color:#333}
 
 <script>
 (function(){
-  var KEY='teen-ig-steps';
-  var saved={};
-  try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
-  var steps=[].slice.call(document.querySelectorAll('ol.steps>li'));
-  var bar=document.getElementById('bar'),label=document.getElementById('barLabel');
-
-  steps.forEach(function(li,i){
-    var id=li.parentNode.dataset.group+'-'+i;
-    var lab=document.createElement('label');lab.className='check';
-    var cb=document.createElement('input');cb.type='checkbox';
-    lab.appendChild(cb);lab.appendChild(document.createTextNode(' Mark as done'));
-    li.querySelector('.step-text').after(lab);
-    if(saved[id]){cb.checked=true;li.classList.add('done')}
-    cb.addEventListener('change',function(){
-      li.classList.toggle('done',cb.checked);saved[id]=cb.checked;
-      try{localStorage.setItem(KEY,JSON.stringify(saved))}catch(e){}
-      update();
-    });
-  });
-
-  function update(){
-    var n=document.querySelectorAll('ol.steps>li.done').length,t=steps.length;
-    bar.style.width=(n/t*100)+'%';
-    label.textContent=n+' of '+t+' steps done';
-    document.querySelectorAll('ol.steps').forEach(function(ol){
-      var all=ol.querySelectorAll(':scope>li'),d=ol.querySelectorAll(':scope>li.done');
-    });
-  }
-  update();
-
-  document.getElementById('reset').addEventListener('click',function(){
-    saved={};try{localStorage.removeItem(KEY)}catch(e){}
-    document.querySelectorAll('ol.steps input').forEach(function(c){c.checked=false});
-    steps.forEach(function(li){li.classList.remove('done')});update();
-  });
-
   // lightbox
   var lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');
   document.querySelectorAll('figure img').forEach(function(img){
